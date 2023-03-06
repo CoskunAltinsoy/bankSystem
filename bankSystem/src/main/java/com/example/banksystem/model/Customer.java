@@ -1,15 +1,14 @@
 package com.example.banksystem.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,16 +17,19 @@ import java.time.LocalDate;
 @Entity
 @Table(name="individual_customers")
 @PrimaryKeyJoinColumn(name="customer_id")
-public class IndividualCustomer extends User {
+public class Customer extends User {
     @Column(name = "first_name")
     private String firstName;
-
     @Column(name = "last_name")
     private String lastName;
-
     @Column(name = "national_identity")
     private String nationalIdentity;
-
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private Set<Account> accounts;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
 }
