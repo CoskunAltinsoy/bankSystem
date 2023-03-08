@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "users")
-public class User extends BaseEntity{
+public class User extends BaseEntity  {
     @Column(name = "email")
     private String email;
 

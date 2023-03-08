@@ -1,5 +1,6 @@
 package com.example.banksystem.model;
 
+import com.example.banksystem.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,9 @@ public class Customer extends User {
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Set<Account> accounts;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

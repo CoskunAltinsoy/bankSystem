@@ -40,7 +40,6 @@ public class Account extends BaseEntity{
     private Customer customer;
     @OneToMany(mappedBy = "card", fetch = FetchType.LAZY)
     private Set<Card> cards;
-
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private Set<Transaction> transactions;
 }

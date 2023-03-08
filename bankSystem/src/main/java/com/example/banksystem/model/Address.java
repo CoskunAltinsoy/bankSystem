@@ -15,7 +15,6 @@ import lombok.Setter;
 public class Address extends BaseEntity{
     @Column(name = "description")
     private String description;
-
     @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
     private Customer customer;
 }
