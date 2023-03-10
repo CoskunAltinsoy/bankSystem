@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -63,8 +64,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private String parseJwt(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
-        if (authHeader == null && authHeader.startsWith("Bareer ")) {
-            return authHeader.substring(7);
+        if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bareer ")) {
+            return authHeader.substring(7, authHeader.length());
         }
         return null;
     }

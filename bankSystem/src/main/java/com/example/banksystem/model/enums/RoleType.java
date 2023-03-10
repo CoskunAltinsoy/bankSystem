@@ -1,6 +1,6 @@
 package com.example.banksystem.model.enums;
 
-public enum Role {
+public enum RoleType {
     ADMIN,
     CUSTOMER
 }

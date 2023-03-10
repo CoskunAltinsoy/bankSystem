@@ -28,7 +28,7 @@ public class Transaction extends  BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "transaction_status")
     private TransactionStatus transactionStatus;
-    @Column(name = "amounts")
+    @Column(name = "amount")
     private BigDecimal amount;
     @Column(name = "transaction_date")
     private LocalDate transactionDate;

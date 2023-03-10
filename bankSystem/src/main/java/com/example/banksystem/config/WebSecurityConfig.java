@@ -24,7 +24,9 @@ public class WebSecurityConfig {
     private final AuthEntryPointJwt unauthorizedHandler;
 
     @Autowired
-    public WebSecurityConfig(CustomUserDetailService customUserDetailService, AuthEntryPointJwt unauthorizedHandler) {
+    public WebSecurityConfig(
+            CustomUserDetailService customUserDetailService,
+            AuthEntryPointJwt unauthorizedHandler) {
         this.customUserDetailService = customUserDetailService;
         this.unauthorizedHandler = unauthorizedHandler;
     }

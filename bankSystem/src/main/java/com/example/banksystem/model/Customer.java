@@ -1,6 +1,5 @@
 package com.example.banksystem.model;
 
-import com.example.banksystem.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -28,8 +26,8 @@ public class Customer extends User {
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role")
+    @ManyToOne()
+    @JoinColumn(name = "role_id")
     private Role role;
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Set<Account> accounts;
