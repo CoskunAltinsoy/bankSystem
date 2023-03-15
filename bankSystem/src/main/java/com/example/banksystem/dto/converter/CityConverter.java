@@ -18,4 +18,10 @@ public class CityConverter {
     public List<CityDto> convertToDtoList(List<City> cities){
         return cities.stream().map(from -> convertToDto(from)).collect(Collectors.toList());
     }
+
+    public City convertToEntity(CityDto cityDto){
+        return new City(
+                cityDto.getCityName()
+        );
+    }
 }

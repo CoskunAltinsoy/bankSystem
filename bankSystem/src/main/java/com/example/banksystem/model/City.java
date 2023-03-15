@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -24,4 +25,9 @@ public class City extends BaseEntity{
     private Set<District> districts;
     @OneToMany(mappedBy = "city")
     private Set<Address> addresses;
+
+    public City(String cityName) {
+        super();
+        this.cityName = cityName;
+    }
 }
