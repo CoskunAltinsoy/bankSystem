@@ -8,6 +8,7 @@ import com.example.banksystem.dto.response.DistrictDto;
 import com.example.banksystem.model.City;
 import com.example.banksystem.model.District;
 import com.example.banksystem.repository.DistrictRepository;
+import com.example.banksystem.service.CityService;
 import com.example.banksystem.service.DistrictService;
 import org.springframework.stereotype.Service;
 
@@ -15,24 +16,24 @@ import org.springframework.stereotype.Service;
 public class DistrictServiceImpl implements DistrictService {
     private final DistrictRepository districtRepository;
     private final DistrictConverter districtConverter;
-    private final CityServiceImpl cityServiceImpl;
+    private final CityService cityService;
     private final CityConverter cityConverter;
 
     public DistrictServiceImpl(
             DistrictRepository districtRepository,
             DistrictConverter districtConverter,
-            CityServiceImpl cityServiceImpl,
+            CityService cityService,
             CityConverter cityConverter) {
         this.districtRepository = districtRepository;
         this.districtConverter = districtConverter;
-        this.cityServiceImpl = cityServiceImpl;
+        this.cityService = cityService;
         this.cityConverter = cityConverter;
     }
 
     @Override
     public void createDistrict(CreateDistrictRequest createDistrictRequest) {
         City city =
-                cityConverter.convertToEntity(cityServiceImpl.getCityById(createDistrictRequest.getCityId()));
+                cityConverter.convertToEntity(cityService.getCityById(createDistrictRequest.getCityId()));
         District district = new District(
                 createDistrictRequest.getDistrictName(),
                 city

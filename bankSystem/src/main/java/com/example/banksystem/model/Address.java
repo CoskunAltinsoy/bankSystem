@@ -21,4 +21,7 @@ public class Address extends BaseEntity{
     @JoinColumn(name = "city_id")
     private City city;
 
+    public Address(String description) {
+        this.description = description;
+    }
 }

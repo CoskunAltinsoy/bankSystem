@@ -19,4 +19,10 @@ public class AddressConverter {
     public List<AddressDto> convertToDtoList(List<Address> addresses){
         return addresses.stream().map(from -> convertToDto(from)).collect(Collectors.toList());
     }
+
+    public Address convertToEntity(AddressDto addressDto){
+        return new Address(
+                addressDto.getDescription()
+        );
+    }
 }

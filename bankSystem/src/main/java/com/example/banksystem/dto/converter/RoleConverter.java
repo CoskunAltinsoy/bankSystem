@@ -14,8 +14,13 @@ public class RoleConverter {
                 role.getRoleName()
         );
     }
-
     public List<RoleDto> convertToDtoList(List<Role> roles){
         return roles.stream().map(from -> convertToDto(from)).collect(Collectors.toList());
+    }
+
+    public Role convertToEntity(RoleDto roleDto){
+        return new Role(
+                roleDto.getRoleName()
+        );
     }
 }
