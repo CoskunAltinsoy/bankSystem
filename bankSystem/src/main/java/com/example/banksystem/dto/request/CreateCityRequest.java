@@ -1,4 +1,4 @@
-package com.example.banksystem.dto.response;
+package com.example.banksystem.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,6 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressDto {
-    private String description;
-
+public class CreateCityRequest {
+    private String cityName;
 }

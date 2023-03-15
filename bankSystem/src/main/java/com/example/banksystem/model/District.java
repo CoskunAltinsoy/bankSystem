@@ -11,14 +11,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "addresses")
-public class Address extends BaseEntity{
-    @Column(name = "description")
-    private String description;
-    @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
-    private Customer customer;
-    @ManyToOne()
+@Table(name = "districts")
+public class District extends BaseEntity{
+    @Column(name = "district_name")
+    private String districtName;
+
+    @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
-
 }

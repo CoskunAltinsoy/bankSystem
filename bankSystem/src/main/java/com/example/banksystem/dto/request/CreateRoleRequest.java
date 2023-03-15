@@ -1,5 +1,6 @@
-package com.example.banksystem.dto.response;
+package com.example.banksystem.dto.request;
 
+import com.example.banksystem.model.enums.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,6 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressDto {
-    private String description;
-
+public class CreateRoleRequest {
+    private RoleType roleType;
 }

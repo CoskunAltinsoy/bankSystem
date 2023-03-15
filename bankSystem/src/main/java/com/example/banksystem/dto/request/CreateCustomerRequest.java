@@ -1,5 +1,7 @@
 package com.example.banksystem.dto.request;
 
+import com.example.banksystem.dto.response.AddressDto;
+import com.example.banksystem.dto.response.RoleDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
