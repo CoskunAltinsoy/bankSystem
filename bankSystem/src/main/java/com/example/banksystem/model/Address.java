@@ -21,7 +21,8 @@ public class Address extends BaseEntity{
     @JoinColumn(name = "city_id")
     private City city;
 
-    public Address(String description) {
+    public Address(String description, City city) {
         this.description = description;
+        this.city = city;
     }
 }

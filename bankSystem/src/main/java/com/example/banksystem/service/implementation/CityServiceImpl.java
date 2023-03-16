@@ -16,17 +16,17 @@ public class CityServiceImpl implements CityService {
         this.cityRepository = cityRepository;
         this.cityConverter = cityConverter;
     }
-
     @Override
     public void createCity(CreateCityRequest createCityRequest) {
         City city = new City(
                 createCityRequest.getCityName()
         );
+        cityRepository.save(city);
     }
-
     @Override
     public CityDto getCityById(Long id) {
         City city = this.cityRepository.findById(id).orElseThrow();
         return cityConverter.convertToDto(city);
     }
+
 }

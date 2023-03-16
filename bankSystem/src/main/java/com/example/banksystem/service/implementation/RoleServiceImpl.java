@@ -22,7 +22,7 @@ public class RoleServiceImpl implements RoleService {
         Role role = new Role(
                 createRoleRequest.getRoleType()
         );
-        this.roleRepository.save(role);
+        roleRepository.save(role);
     }
 
     @Override
@@ -30,4 +30,6 @@ public class RoleServiceImpl implements RoleService {
         Role role = roleRepository.findById(id).orElseThrow();
         return roleConverter.convertToDto(role);
     }
+
+
 }

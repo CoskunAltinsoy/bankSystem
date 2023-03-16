@@ -9,5 +9,6 @@ public interface CustomerService {
 
     public AuthResponse login(AuthRequest authRequest);
     public CustomerDto register(CreateCustomerRequest createCustomerRequest);
+    public CustomerDto getCustomerById(Long id);
 
 }

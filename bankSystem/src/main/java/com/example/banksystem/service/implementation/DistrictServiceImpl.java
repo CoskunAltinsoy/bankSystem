@@ -38,10 +38,12 @@ public class DistrictServiceImpl implements DistrictService {
                 createDistrictRequest.getDistrictName(),
                 city
         );
+        districtRepository.save(district);
     }
     @Override
     public DistrictDto getCityById(Long id) {
         District district = districtRepository.findById(id).orElseThrow();
         return districtConverter.convertToDto(district);
     }
+
 }
