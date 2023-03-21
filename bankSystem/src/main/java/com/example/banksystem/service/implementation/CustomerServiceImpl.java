@@ -71,18 +71,11 @@ public class CustomerServiceImpl implements CustomerService {
                 (addressService.getAddressById(createCustomerRequest.getAddressId()));
 
         Customer customer =
-                new Customer(
-                        createCustomerRequest.getEmail(),
-                        createCustomerRequest.getPassword(),
-                        createCustomerRequest.getPhoneNumber(),
-                        createCustomerRequest.getFirstName(),
-                        createCustomerRequest.getLastName(),
-                        createCustomerRequest.getNationalIdentity(),
-                        createCustomerRequest.getDateOfBirth(),
-                        role,
-                        address
-                );
-        return null;
+                customerConverter.convertToEntity(createCustomerRequest);
+        customer.setRole(role);
+        customer.setAddress(address);
+
+        return customerConverter.convertToDto(customer);
     }
 
     @Override

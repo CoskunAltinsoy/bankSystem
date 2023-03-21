@@ -8,6 +8,8 @@ import com.example.banksystem.repository.CityRepository;
 import com.example.banksystem.service.CityService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class CityServiceImpl implements CityService {
     private final CityRepository cityRepository;
@@ -21,11 +23,16 @@ public class CityServiceImpl implements CityService {
         City city = new City(
                 createCityRequest.getCityName()
         );
+        city.setCreatedDate(LocalDate.now());
+        city.setDeleted(false);
         cityRepository.save(city);
     }
     @Override
     public CityDto getCityById(Long id) {
-        City city = this.cityRepository.findById(id).orElseThrow();
+        City city = cityRepository.findById(id).orElseThrow();
+        if(city.isDeleted()){
+            return null;
+        }
         return cityConverter.convertToDto(city);
     }
 

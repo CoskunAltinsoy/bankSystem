@@ -22,4 +22,10 @@ public abstract class BaseEntity {
     private LocalDate updatedDate;
     @Column(name = "is_deleted")
     private boolean isDeleted;
+
+    public BaseEntity(LocalDate createdDate, LocalDate updatedDate, boolean isDeleted) {
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
+        this.isDeleted = isDeleted;
+    }
 }

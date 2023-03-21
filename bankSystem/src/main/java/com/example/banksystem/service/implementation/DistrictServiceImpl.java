@@ -12,6 +12,8 @@ import com.example.banksystem.service.CityService;
 import com.example.banksystem.service.DistrictService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class DistrictServiceImpl implements DistrictService {
     private final DistrictRepository districtRepository;
@@ -38,11 +40,16 @@ public class DistrictServiceImpl implements DistrictService {
                 createDistrictRequest.getDistrictName(),
                 city
         );
+        district.setCreatedDate(LocalDate.now());
+        district.setDeleted(false);
         districtRepository.save(district);
     }
     @Override
     public DistrictDto getCityById(Long id) {
         District district = districtRepository.findById(id).orElseThrow();
+        if (district.isDeleted()){
+            return null;
+        }
         return districtConverter.convertToDto(district);
     }
 

@@ -23,6 +23,18 @@ public class CustomerConverter {
         );
     }
 
+    public Customer convertToEntity(CreateCustomerRequest createCustomerRequest){
+        return new Customer(
+                createCustomerRequest.getEmail(),
+                createCustomerRequest.getPassword(),
+                createCustomerRequest.getPhoneNumber(),
+                createCustomerRequest.getFirstName(),
+                createCustomerRequest.getLastName(),
+                createCustomerRequest.getNationalIdentity(),
+                createCustomerRequest.getDateOfBirth()
+        );
+    }
+
     public List<CustomerDto> convertToListDto(List<Customer> customers){
         return customers.stream().map(from -> convertToDto(from)).collect(Collectors.toList());
     }

@@ -8,6 +8,8 @@ import com.example.banksystem.repository.RoleRepository;
 import com.example.banksystem.service.RoleService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
@@ -22,12 +24,17 @@ public class RoleServiceImpl implements RoleService {
         Role role = new Role(
                 createRoleRequest.getRoleType()
         );
+        role.setCreatedDate(LocalDate.now());
+        role.setDeleted(false);
         roleRepository.save(role);
     }
 
     @Override
     public RoleDto getRoleById(Long id) {
         Role role = roleRepository.findById(id).orElseThrow();
+        if (role.isDeleted()){
+            return null;
+        }
         return roleConverter.convertToDto(role);
     }
 
