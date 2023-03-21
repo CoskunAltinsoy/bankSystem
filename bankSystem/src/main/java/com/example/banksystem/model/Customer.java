@@ -65,16 +65,5 @@ public class Customer extends User {
         this.address = address;
     }
 
-    public Customer(
-            String email, String password,
-            String phoneNumber, String firstName,
-            String lastName, String nationalIdentity,
-            LocalDate dateOfBirth) {
-        super(email, password, phoneNumber);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.nationalIdentity = nationalIdentity;
-        this.dateOfBirth = dateOfBirth;
-    }
-    
+
 }

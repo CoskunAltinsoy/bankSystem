@@ -22,30 +22,20 @@ public class User extends BaseEntity  {
 
     @Column(name = "phone_number")
     private String phoneNumber;
-
-    public User(
-            Long id, LocalDate createdDate,
-            LocalDate updatedDate, boolean isDeleted,
-            String email, String password,
-            String phoneNumber
-    ) {
-        super(id, createdDate, updatedDate, isDeleted);
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-    }
-
+    @Column(name = "is_number")
+    private boolean isBlocked;
 
     public User(
             LocalDate createdDate,
             LocalDate updatedDate, boolean isDeleted,
             String email, String password,
-            String phoneNumber
+            String phoneNumber,  boolean isBlocked
     ) {
         super(createdDate, updatedDate, isDeleted);
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.isBlocked = isBlocked;
     }
 
 

@@ -12,14 +12,21 @@ import com.example.banksystem.model.Address;
 import com.example.banksystem.model.Customer;
 import com.example.banksystem.model.Role;
 import com.example.banksystem.repository.CustomerRepository;
+import com.example.banksystem.security.CustomUserDetail;
 import com.example.banksystem.security.JwtUtils;
 import com.example.banksystem.service.AddressService;
 import com.example.banksystem.service.CustomerService;
 import com.example.banksystem.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -44,7 +51,8 @@ public class CustomerServiceImpl implements CustomerService {
             RoleService roleService,
             RoleConverter roleConverter,
             AddressConverter addressConverter,
-            AddressService addressService) {
+            AddressService addressService
+    ) {
         this.customerRepository = customerRepository;
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
@@ -59,7 +67,20 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public AuthResponse login(AuthRequest authRequest) {
-        return null;
+        Authentication authentication =
+                authenticationManager.authenticate
+                        (new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        CustomUserDetail customUserDetail = (CustomUserDetail) authentication.getPrincipal();
+
+        List<String> roles = customUserDetail.getAuthorities()
+                .stream().map(x -> x.getAuthority()).collect(Collectors.toList());
+
+
+        return new AuthResponse(jwt);
     }
 
     @Override
@@ -81,6 +102,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDto getCustomerById(Long id) {
         Customer customer = customerRepository.findById(id).orElseThrow();
+        if (customer.isDeleted()){
+            return null;
+        }
         return customerConverter.convertToDto(customer);
     }
 }
