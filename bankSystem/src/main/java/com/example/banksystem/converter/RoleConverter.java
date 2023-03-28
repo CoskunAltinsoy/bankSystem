@@ -1,5 +1,6 @@
-package com.example.banksystem.dto.converter;
+package com.example.banksystem.converter;
 
+import com.example.banksystem.dto.request.CreateRoleRequest;
 import com.example.banksystem.dto.response.RoleDto;
 import com.example.banksystem.model.Role;
 import org.springframework.stereotype.Component;
@@ -18,9 +19,11 @@ public class RoleConverter {
         return roles.stream().map(from -> convertToDto(from)).collect(Collectors.toList());
     }
 
-    public Role convertToEntity(RoleDto roleDto){
-        return new Role(
-                roleDto.getRoleName()
-        );
+    public Role convertToEntity(CreateRoleRequest createRoleRequest){
+        Role role = new Role();
+
+        role.setRoleName(createRoleRequest.getRoleName());
+
+        return role;
     }
 }

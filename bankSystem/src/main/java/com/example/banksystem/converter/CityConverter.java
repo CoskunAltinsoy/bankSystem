@@ -1,5 +1,6 @@
-package com.example.banksystem.dto.converter;
+package com.example.banksystem.converter;
 
+import com.example.banksystem.dto.request.CreateCityRequest;
 import com.example.banksystem.dto.response.CityDto;
 import com.example.banksystem.dto.response.DistrictDto;
 import com.example.banksystem.model.City;
@@ -15,13 +16,16 @@ public class CityConverter {
                 city.getCityName()
         );
     }
+    public City convertToEntity(CreateCityRequest createCityRequest){
+        City city = new City();
+
+        city.setCityName(createCityRequest.getCityName());
+
+        return city;
+    }
     public List<CityDto> convertToDtoList(List<City> cities){
         return cities.stream().map(from -> convertToDto(from)).collect(Collectors.toList());
     }
 
-    public City convertToEntity(CityDto cityDto){
-        return new City(
-                cityDto.getCityName()
-        );
-    }
+
 }

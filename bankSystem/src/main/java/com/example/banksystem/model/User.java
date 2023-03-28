@@ -25,18 +25,6 @@ public class User extends BaseEntity  {
     @Column(name = "is_number")
     private boolean isBlocked;
 
-    public User(
-            LocalDate createdDate,
-            LocalDate updatedDate, boolean isDeleted,
-            String email, String password,
-            String phoneNumber,  boolean isBlocked
-    ) {
-        super(createdDate, updatedDate, isDeleted);
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.isBlocked = isBlocked;
-    }
 
 
 }

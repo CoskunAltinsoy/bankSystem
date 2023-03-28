@@ -1,8 +1,8 @@
 package com.example.banksystem.service.implementation;
 
-import com.example.banksystem.dto.converter.AddressConverter;
-import com.example.banksystem.dto.converter.CityConverter;
-import com.example.banksystem.dto.converter.CustomerConverter;
+import com.example.banksystem.converter.AddressConverter;
+import com.example.banksystem.converter.CityConverter;
+import com.example.banksystem.converter.CustomerConverter;
 import com.example.banksystem.dto.request.CreateAddressRequest;
 import com.example.banksystem.dto.response.AddressDto;
 import com.example.banksystem.model.Address;
@@ -41,12 +41,7 @@ public class AddressServiceImpl implements AddressService {
     }
     @Override
     public void createAddress(CreateAddressRequest createAddressRequest) {
-        City city =
-                cityConverter.convertToEntity
-                        (cityService.getCityById(createAddressRequest.getCityId()));
-        Address address =
-                new Address(createAddressRequest.getDescription(),
-                        city);
+        Address address = addressConverter.convertToEntity(createAddressRequest);
         address.setCreatedDate(LocalDate.now());
         address.setDeleted(false);
         addressRepository.save(address);

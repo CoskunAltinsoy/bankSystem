@@ -32,38 +32,6 @@ public class Customer extends User {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    public Customer(
-            String email, String password,
-            String phoneNumber, String firstName,
-            String lastName, String nationalIdentity,
-            LocalDate dateOfBirth, Role role,
-            Set<Account> accounts, Address address
-    ) {
-        super(email, password, phoneNumber);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.nationalIdentity = nationalIdentity;
-        this.dateOfBirth = dateOfBirth;
-        this.role = role;
-        this.accounts = accounts;
-        this.address = address;
-    }
-
-    public Customer(
-            String email, String password,
-            String phoneNumber, String firstName,
-            String lastName, String nationalIdentity,
-            LocalDate dateOfBirth, Role role,
-            Address address
-    ) {
-        super(email, password, phoneNumber);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.nationalIdentity = nationalIdentity;
-        this.dateOfBirth = dateOfBirth;
-        this.role = role;
-        this.address = address;
-    }
 
 
 }

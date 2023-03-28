@@ -1,4 +1,4 @@
-package com.example.banksystem.dto.converter;
+package com.example.banksystem.converter;
 
 import com.example.banksystem.dto.request.CreateCustomerRequest;
 import com.example.banksystem.dto.response.CustomerDto;
@@ -24,15 +24,19 @@ public class CustomerConverter {
     }
 
     public Customer convertToEntity(CreateCustomerRequest createCustomerRequest){
-        return new Customer(
-                createCustomerRequest.getEmail(),
-                createCustomerRequest.getPassword(),
-                createCustomerRequest.getPhoneNumber(),
-                createCustomerRequest.getFirstName(),
-                createCustomerRequest.getLastName(),
-                createCustomerRequest.getNationalIdentity(),
-                createCustomerRequest.getDateOfBirth()
-        );
+        Customer customer = new Customer();
+
+        customer.setEmail(createCustomerRequest.getEmail());
+        customer.setPassword(createCustomerRequest.getPassword());
+        customer.setPhoneNumber(createCustomerRequest.getPhoneNumber());
+        customer.setFirstName(createCustomerRequest.getFirstName());
+        customer.setLastName(createCustomerRequest.getLastName());
+        customer.setNationalIdentity(createCustomerRequest.getNationalIdentity());
+        customer.setDateOfBirth(createCustomerRequest.getDateOfBirth());
+        customer.getRole().setId((createCustomerRequest.getRoleId()));
+        customer.getAddress().setId(createCustomerRequest.getAddressId());
+
+        return customer;
     }
 
     public List<CustomerDto> convertToListDto(List<Customer> customers){

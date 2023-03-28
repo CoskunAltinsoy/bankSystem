@@ -1,5 +1,6 @@
-package com.example.banksystem.dto.converter;
+package com.example.banksystem.converter;
 
+import com.example.banksystem.dto.request.CreateAddressRequest;
 import com.example.banksystem.dto.response.AddressDto;
 import com.example.banksystem.dto.response.RoleDto;
 import com.example.banksystem.model.Address;
@@ -20,9 +21,12 @@ public class AddressConverter {
         return addresses.stream().map(from -> convertToDto(from)).collect(Collectors.toList());
     }
 
-    public Address convertToEntity(AddressDto addressDto){
-        return new Address(
-                addressDto.getDescription()
-        );
+    public Address convertToEntity(CreateAddressRequest createAddressRequest){
+        Address address = new Address();
+
+        address.setDescription(createAddressRequest.getDescription());
+        address.getCity().setId(createAddressRequest.getCityId());
+
+        return address;
     }
 }

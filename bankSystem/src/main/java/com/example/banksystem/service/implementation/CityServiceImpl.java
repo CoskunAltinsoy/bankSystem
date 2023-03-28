@@ -1,6 +1,6 @@
 package com.example.banksystem.service.implementation;
 
-import com.example.banksystem.dto.converter.CityConverter;
+import com.example.banksystem.converter.CityConverter;
 import com.example.banksystem.dto.request.CreateCityRequest;
 import com.example.banksystem.dto.response.CityDto;
 import com.example.banksystem.model.City;
@@ -20,9 +20,7 @@ public class CityServiceImpl implements CityService {
     }
     @Override
     public void createCity(CreateCityRequest createCityRequest) {
-        City city = new City(
-                createCityRequest.getCityName()
-        );
+        City city = cityConverter.convertToEntity(createCityRequest);
         city.setCreatedDate(LocalDate.now());
         city.setDeleted(false);
         cityRepository.save(city);

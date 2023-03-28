@@ -23,7 +23,4 @@ public class Role extends BaseEntity{
     @OneToMany(mappedBy = "role")
     private List<Customer> customers;
 
-    public Role(RoleType roleName) {
-        this.roleName = roleName;
-    }
 }

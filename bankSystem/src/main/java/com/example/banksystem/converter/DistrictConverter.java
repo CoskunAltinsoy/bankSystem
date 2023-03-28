@@ -1,5 +1,6 @@
-package com.example.banksystem.dto.converter;
+package com.example.banksystem.converter;
 
+import com.example.banksystem.dto.request.CreateDistrictRequest;
 import com.example.banksystem.dto.response.DistrictDto;
 import com.example.banksystem.model.District;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,15 @@ public class DistrictConverter {
         return new DistrictDto(
                 district.getDistrictName()
         );
+    }
+
+    public District convertToEntity(CreateDistrictRequest createDistrictRequest){
+        District district = new District();
+
+        district.setDistrictName(createDistrictRequest.getDistrictName());
+        district.getCity().setId(createDistrictRequest.getCityId());
+
+        return district;
     }
 
     public List<DistrictDto> convertToDtoList(List<District> districts){

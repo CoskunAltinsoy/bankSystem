@@ -1,6 +1,6 @@
 package com.example.banksystem.service.implementation;
 
-import com.example.banksystem.dto.converter.RoleConverter;
+import com.example.banksystem.converter.RoleConverter;
 import com.example.banksystem.dto.request.CreateRoleRequest;
 import com.example.banksystem.dto.response.RoleDto;
 import com.example.banksystem.model.Role;
@@ -21,9 +21,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void createRole(CreateRoleRequest createRoleRequest) {
-        Role role = new Role(
-                createRoleRequest.getRoleType()
-        );
+        Role role = roleConverter.convertToEntity(createRoleRequest);
         role.setCreatedDate(LocalDate.now());
         role.setDeleted(false);
         roleRepository.save(role);

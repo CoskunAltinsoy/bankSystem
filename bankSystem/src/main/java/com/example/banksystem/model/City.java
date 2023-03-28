@@ -26,20 +26,5 @@ public class City extends BaseEntity{
     @OneToMany(mappedBy = "city")
     private Set<Address> addresses;
 
-    public City(
-            LocalDate createdDate,
-            LocalDate updatedDate, boolean isDeleted,
-            String cityName, Set<District> districts,
-            Set<Address> addresses
-    ) {
-        super(createdDate, updatedDate, isDeleted);
-        this.cityName = cityName;
-        this.districts = districts;
-        this.addresses = addresses;
-    }
 
-    public City(String cityName) {
-        super();
-        this.cityName = cityName;
-    }
 }

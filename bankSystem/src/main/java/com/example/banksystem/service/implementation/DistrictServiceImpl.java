@@ -1,8 +1,8 @@
 package com.example.banksystem.service.implementation;
 
 
-import com.example.banksystem.dto.converter.CityConverter;
-import com.example.banksystem.dto.converter.DistrictConverter;
+import com.example.banksystem.converter.CityConverter;
+import com.example.banksystem.converter.DistrictConverter;
 import com.example.banksystem.dto.request.CreateDistrictRequest;
 import com.example.banksystem.dto.response.DistrictDto;
 import com.example.banksystem.model.City;
@@ -34,12 +34,7 @@ public class DistrictServiceImpl implements DistrictService {
 
     @Override
     public void createDistrict(CreateDistrictRequest createDistrictRequest) {
-        City city =
-                cityConverter.convertToEntity(cityService.getCityById(createDistrictRequest.getCityId()));
-        District district = new District(
-                createDistrictRequest.getDistrictName(),
-                city
-        );
+        District district = districtConverter.convertToEntity(createDistrictRequest);
         district.setCreatedDate(LocalDate.now());
         district.setDeleted(false);
         districtRepository.save(district);

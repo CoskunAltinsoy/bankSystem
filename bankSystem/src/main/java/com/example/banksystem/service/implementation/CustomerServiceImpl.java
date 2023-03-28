@@ -1,16 +1,13 @@
 package com.example.banksystem.service.implementation;
 
-import com.example.banksystem.dto.converter.AddressConverter;
-import com.example.banksystem.dto.converter.CustomerConverter;
-import com.example.banksystem.dto.converter.RoleConverter;
+import com.example.banksystem.converter.AddressConverter;
+import com.example.banksystem.converter.CustomerConverter;
+import com.example.banksystem.converter.RoleConverter;
 import com.example.banksystem.dto.request.AuthRequest;
 import com.example.banksystem.dto.request.CreateCustomerRequest;
 import com.example.banksystem.dto.response.AuthResponse;
 import com.example.banksystem.dto.response.CustomerDto;
-import com.example.banksystem.model.Account;
-import com.example.banksystem.model.Address;
 import com.example.banksystem.model.Customer;
-import com.example.banksystem.model.Role;
 import com.example.banksystem.repository.CustomerRepository;
 import com.example.banksystem.security.CustomUserDetail;
 import com.example.banksystem.security.JwtUtils;
@@ -85,16 +82,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto register(CreateCustomerRequest createCustomerRequest) {
-        Role role = roleConverter.convertToEntity
-                (roleService.getRoleById(createCustomerRequest.getRoleId()));
-
-        Address address = addressConverter.convertToEntity
-                (addressService.getAddressById(createCustomerRequest.getAddressId()));
 
         Customer customer =
                 customerConverter.convertToEntity(createCustomerRequest);
-        customer.setRole(role);
-        customer.setAddress(address);
 
         return customerConverter.convertToDto(customer);
     }
