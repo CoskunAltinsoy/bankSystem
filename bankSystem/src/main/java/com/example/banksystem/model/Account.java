@@ -38,7 +38,7 @@ public class Account extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private Customer customer;
-    @OneToMany(mappedBy = "card", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private Set<Card> cards;
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private Set<Transaction> transactions;

@@ -1,8 +1,6 @@
 package com.example.banksystem.service.implementation;
 
-import com.example.banksystem.converter.AddressConverter;
 import com.example.banksystem.converter.CustomerConverter;
-import com.example.banksystem.converter.RoleConverter;
 import com.example.banksystem.dto.request.AuthRequest;
 import com.example.banksystem.dto.request.CreateCustomerRequest;
 import com.example.banksystem.dto.response.AuthResponse;
@@ -11,9 +9,7 @@ import com.example.banksystem.model.Customer;
 import com.example.banksystem.repository.CustomerRepository;
 import com.example.banksystem.security.CustomUserDetail;
 import com.example.banksystem.security.JwtUtils;
-import com.example.banksystem.service.AddressService;
 import com.example.banksystem.service.CustomerService;
-import com.example.banksystem.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,10 +29,6 @@ public class CustomerServiceImpl implements CustomerService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
     private final CustomerConverter customerConverter;
-    private final RoleService roleService;
-    private final RoleConverter roleConverter;
-    private final AddressConverter addressConverter;
-    private final AddressService addressService;
 
     @Autowired
     public CustomerServiceImpl(
@@ -44,21 +36,13 @@ public class CustomerServiceImpl implements CustomerService {
             AuthenticationManager authenticationManager,
             PasswordEncoder passwordEncoder,
             JwtUtils jwtUtils,
-            CustomerConverter customerConverter,
-            RoleService roleService,
-            RoleConverter roleConverter,
-            AddressConverter addressConverter,
-            AddressService addressService
+            CustomerConverter customerConverter
     ) {
         this.customerRepository = customerRepository;
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtils = jwtUtils;
         this.customerConverter = customerConverter;
-        this.roleService = roleService;
-        this.roleConverter = roleConverter;
-        this.addressConverter = addressConverter;
-        this.addressService = addressService;
     }
 
 
@@ -85,6 +69,8 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customer customer =
                 customerConverter.convertToEntity(createCustomerRequest);
+
+        customer.setPassword(passwordEncoder.encode(createCustomerRequest.getPassword()));
 
         return customerConverter.convertToDto(customer);
     }

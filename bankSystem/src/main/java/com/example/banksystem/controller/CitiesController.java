@@ -3,6 +3,7 @@ package com.example.banksystem.controller;
 import com.example.banksystem.dto.request.CreateCityRequest;
 import com.example.banksystem.dto.response.CityDto;
 import com.example.banksystem.service.CityService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class CitiesController {
     @PostMapping
     public ResponseEntity<Void> createCity(@RequestBody CreateCityRequest createCityRequest){
         cityService.createCity(createCityRequest);
-        return (ResponseEntity<Void>)ResponseEntity.ok();
+        return (ResponseEntity<Void>) ResponseEntity.ok();
     }
     @GetMapping({"id"})
     public ResponseEntity<CityDto> getByCityId(@PathVariable("id") Long id){

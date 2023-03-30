@@ -16,11 +16,11 @@ public class CustomersController {
     public CustomersController(CustomerService customerService) {
         this.customerService = customerService;
     }
-    @GetMapping
-    public ResponseEntity<AuthResponse> login(AuthRequest authRequest){
+    @PostMapping("login")
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest){
         return ResponseEntity.ok(customerService.login(authRequest));
     }
-    @PostMapping
+    @PostMapping("register")
     public ResponseEntity<CustomerDto> register(@RequestBody CreateCustomerRequest createCustomerRequest){
         return ResponseEntity.ok(customerService.register(createCustomerRequest));
     }
