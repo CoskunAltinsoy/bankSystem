@@ -2,7 +2,9 @@ package com.example.banksystem.converter;
 
 import com.example.banksystem.dto.request.CreateCustomerRequest;
 import com.example.banksystem.dto.response.CustomerDto;
+import com.example.banksystem.model.Address;
 import com.example.banksystem.model.Customer;
+import com.example.banksystem.model.Role;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -25,6 +27,11 @@ public class CustomerConverter {
 
     public Customer convertToEntity(CreateCustomerRequest createCustomerRequest){
         Customer customer = new Customer();
+        Role role = new Role();
+        Address address = new Address();
+
+        role.setId(createCustomerRequest.getRoleId());
+        address.setId(createCustomerRequest.getAddressId());
 
         customer.setEmail(createCustomerRequest.getEmail());
         customer.setPassword(createCustomerRequest.getPassword());
@@ -33,8 +40,8 @@ public class CustomerConverter {
         customer.setLastName(createCustomerRequest.getLastName());
         customer.setNationalIdentity(createCustomerRequest.getNationalIdentity());
         customer.setDateOfBirth(createCustomerRequest.getDateOfBirth());
-        customer.getRole().setId((createCustomerRequest.getRoleId()));
-        customer.getAddress().setId(createCustomerRequest.getAddressId());
+        customer.setRole(role);
+        customer.setAddress(address);
 
         return customer;
     }

@@ -4,6 +4,7 @@ import com.example.banksystem.dto.request.CreateAddressRequest;
 import com.example.banksystem.dto.response.AddressDto;
 import com.example.banksystem.dto.response.RoleDto;
 import com.example.banksystem.model.Address;
+import com.example.banksystem.model.City;
 import com.example.banksystem.model.Role;
 import org.springframework.stereotype.Component;
 
@@ -23,9 +24,12 @@ public class AddressConverter {
 
     public Address convertToEntity(CreateAddressRequest createAddressRequest){
         Address address = new Address();
+        City city = new City();
+
+        city.setId(createAddressRequest.getCityId());
 
         address.setDescription(createAddressRequest.getDescription());
-        address.getCity().setId(createAddressRequest.getCityId());
+        address.setCity(city);
 
         return address;
     }
