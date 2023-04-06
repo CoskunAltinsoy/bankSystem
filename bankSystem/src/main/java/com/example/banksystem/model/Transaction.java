@@ -33,7 +33,7 @@ public class Transaction extends  BaseEntity {
     @Column(name = "transaction_date")
     private LocalDate transactionDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
 }

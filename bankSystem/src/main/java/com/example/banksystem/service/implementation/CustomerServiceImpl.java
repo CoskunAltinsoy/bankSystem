@@ -72,6 +72,8 @@ public class CustomerServiceImpl implements CustomerService {
 
         customer.setPassword(passwordEncoder.encode(createCustomerRequest.getPassword()));
 
+        customerRepository.save(customer);
+
         return customerConverter.convertToDto(customer);
     }
 

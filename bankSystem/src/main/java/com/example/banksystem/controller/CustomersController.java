@@ -16,15 +16,15 @@ public class CustomersController {
     public CustomersController(CustomerService customerService) {
         this.customerService = customerService;
     }
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest){
         return ResponseEntity.ok(customerService.login(authRequest));
     }
-    @PostMapping("register")
+    @PostMapping("/register")
     public ResponseEntity<CustomerDto> register(@RequestBody CreateCustomerRequest createCustomerRequest){
         return ResponseEntity.ok(customerService.register(createCustomerRequest));
     }
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CustomerDto> getByCustomerById(@PathVariable("id") Long id){
         return ResponseEntity.ok(customerService.getCustomerById(id));
     }

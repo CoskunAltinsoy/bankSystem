@@ -25,6 +25,4 @@ public class User extends BaseEntity  {
     @Column(name = "is_number")
     private boolean isBlocked;
 
-
-
 }

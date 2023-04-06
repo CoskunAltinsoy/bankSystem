@@ -28,7 +28,7 @@ public class Customer extends User {
     private Role role;
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Set<Account> accounts;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address address;
 
