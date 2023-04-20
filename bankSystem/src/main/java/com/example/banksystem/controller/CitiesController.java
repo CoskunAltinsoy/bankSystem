@@ -5,10 +5,11 @@ import com.example.banksystem.dto.response.CityDto;
 import com.example.banksystem.service.CityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/cities")
+@RequestMapping("/api/cities")
 public class CitiesController {
     private final CityService cityService;
     public CitiesController(CityService cityService) {
@@ -19,7 +20,8 @@ public class CitiesController {
         cityService.createCity(createCityRequest);
         return (ResponseEntity<Void>) ResponseEntity.ok();
     }
-    @GetMapping({"id"})
+    @GetMapping({"/{id}"})
+
     public ResponseEntity<CityDto> getByCityId(@PathVariable("id") Long id){
         return ResponseEntity.ok(cityService.getCityById(id));
     }

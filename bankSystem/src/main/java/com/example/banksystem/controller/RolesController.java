@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/roles")
+@RequestMapping("/api/roles")
 public class RolesController {
     private final RoleService roleService;
     public RolesController(RoleService roleService) {
@@ -18,7 +18,7 @@ public class RolesController {
         roleService.createRole(createRoleRequest);
         return (ResponseEntity<Void>) ResponseEntity.ok();
     }
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<RoleDto> getByRoleId(@PathVariable("id") Long id){
         return ResponseEntity.ok(roleService.getRoleById(id));
     }

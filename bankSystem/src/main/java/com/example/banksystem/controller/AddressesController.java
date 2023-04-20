@@ -4,10 +4,11 @@ import com.example.banksystem.dto.request.CreateAddressRequest;
 import com.example.banksystem.dto.response.AddressDto;
 import com.example.banksystem.service.AddressService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/addresses")
+@RequestMapping("/api/addresses")
 public class AddressesController {
     private final AddressService addressService;
     public AddressesController(AddressService addressService) {
@@ -19,7 +20,8 @@ public class AddressesController {
         return (ResponseEntity<Void>) ResponseEntity.ok();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AddressDto> getByAddressId(@PathVariable("id") Long id){
         return ResponseEntity.ok(addressService.getAddressById(id));
     }

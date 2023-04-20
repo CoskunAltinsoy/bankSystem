@@ -24,16 +24,10 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
-    private JwtUtils jwtUtils;
-    private CustomUserDetailService customUserDetailService;
     @Autowired
-    public JwtAuthenticationFilter(
-            JwtUtils jwtUtils,
-            CustomUserDetailService customUserDetailService
-    ) {
-        this.jwtUtils = jwtUtils;
-        this.customUserDetailService = customUserDetailService;
-    }
+    private JwtUtils jwtUtils;
+    @Autowired
+    private CustomUserDetailService customUserDetailService;
 
     @Override
     protected void doFilterInternal(
@@ -67,7 +61,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private String parseJwt(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
-        if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bareer ")) {
+        if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7, authHeader.length());
         }
         return null;

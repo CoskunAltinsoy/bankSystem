@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/districts")
+@RequestMapping("/api/districts")
 
 public class DistrictsController {
     private final DistrictService districtService;
@@ -23,7 +23,7 @@ public class DistrictsController {
         return (ResponseEntity<Void>) ResponseEntity.ok();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<DistrictDto> getByDistrictId(@PathVariable("id") Long id){
         return ResponseEntity.ok(districtService.getCityById(id));
     }

@@ -19,6 +19,6 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Customer customer = this.customerRepository.findCustomerByEmail(email)
                 .orElseThrow();//exception
-        return new CustomUserDetail(customer);
+        return CustomUserDetail.build(customer);
     }
 }
