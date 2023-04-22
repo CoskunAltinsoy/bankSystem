@@ -1,4 +1,4 @@
-package com.example.banksystem.dto.response;
+package com.example.banksystem.dto.request.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerDto {
+public class CreateCustomerRequest {
     private String email;
     private String password;
     private String phoneNumber;
@@ -19,4 +19,6 @@ public class CustomerDto {
     private String lastName;
     private String nationalIdentity;
     private LocalDate dateOfBirth;
+    private Long roleId;
+    private Long addressId;
 }

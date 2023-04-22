@@ -1,7 +1,7 @@
 package com.example.banksystem.converter;
 
-import com.example.banksystem.dto.request.CreateCustomerRequest;
-import com.example.banksystem.dto.response.CustomerDto;
+import com.example.banksystem.dto.request.create.CreateCustomerRequest;
+import com.example.banksystem.dto.response.CustomerResponse;
 import com.example.banksystem.model.Address;
 import com.example.banksystem.model.Customer;
 import com.example.banksystem.model.Role;
@@ -13,16 +13,19 @@ import java.util.stream.Collectors;
 @Component
 public class CustomerConverter {
 
-    public CustomerDto convertToDto(Customer customer){
-        return new CustomerDto(
-                customer.getEmail(),
-                customer.getPassword(),
-                customer.getPhoneNumber(),
-                customer.getFirstName(),
-                customer.getLastName(),
-                customer.getNationalIdentity(),
-                customer.getDateOfBirth()
-        );
+    public CustomerResponse convertToDto(Customer customer){
+        CustomerResponse customerResponse = new CustomerResponse();
+
+        customerResponse.setEmail(customer.getEmail());
+        customerResponse.setPassword(customer.getPassword());
+        customerResponse.setPhoneNumber(customer.getPhoneNumber());
+        customerResponse.setFirstName(customer.getFirstName());
+        customerResponse.setLastName(customer.getLastName());
+        customerResponse.setNationalIdentity(customer.getNationalIdentity());
+        customerResponse.setDateOfBirth(customer.getDateOfBirth());
+        customerResponse.setRoleName(customer.getRole().getRoleName().name());
+
+        return customerResponse;
     }
 
     public Customer convertToEntity(CreateCustomerRequest createCustomerRequest){
@@ -46,7 +49,7 @@ public class CustomerConverter {
         return customer;
     }
 
-    public List<CustomerDto> convertToListDto(List<Customer> customers){
+    public List<CustomerResponse> convertToListDto(List<Customer> customers){
         return customers.stream().map(from -> convertToDto(from)).collect(Collectors.toList());
     }
 }

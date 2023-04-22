@@ -1,8 +1,8 @@
 package com.example.banksystem.service.implementation;
 
 import com.example.banksystem.converter.CityConverter;
-import com.example.banksystem.dto.request.CreateCityRequest;
-import com.example.banksystem.dto.response.CityDto;
+import com.example.banksystem.dto.request.create.CreateCityRequest;
+import com.example.banksystem.dto.response.CityResponse;
 import com.example.banksystem.model.City;
 import com.example.banksystem.repository.CityRepository;
 import com.example.banksystem.service.CityService;
@@ -26,12 +26,11 @@ public class CityServiceImpl implements CityService {
         cityRepository.save(city);
     }
     @Override
-    public CityDto getCityById(Long id) {
+    public CityResponse getCityById(Long id) {
         City city = cityRepository.findById(id).orElseThrow();
         if(city.isDeleted()){
             return null;
         }
         return cityConverter.convertToDto(city);
     }
-
 }

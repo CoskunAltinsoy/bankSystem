@@ -15,7 +15,6 @@ public class CustomUserDetail implements UserDetails {
     @JsonIgnore
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
-
     public CustomUserDetail(String email, String password,
                             Collection<? extends GrantedAuthority> authorities) {
         this.email = email;

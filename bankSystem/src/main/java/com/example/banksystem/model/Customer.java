@@ -31,7 +31,4 @@ public class Customer extends User {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address address;
-
-
-
 }

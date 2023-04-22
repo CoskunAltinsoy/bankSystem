@@ -1,9 +1,9 @@
 package com.example.banksystem.service;
 
-import com.example.banksystem.dto.request.CreateAddressRequest;
-import com.example.banksystem.dto.response.AddressDto;
+import com.example.banksystem.dto.request.create.CreateAddressRequest;
+import com.example.banksystem.dto.response.AddressResponse;
 
 public interface AddressService {
     public void createAddress(CreateAddressRequest createAddressRequest);
-    public AddressDto getAddressById(Long id);
+    public AddressResponse getAddressById(Long id);
 }

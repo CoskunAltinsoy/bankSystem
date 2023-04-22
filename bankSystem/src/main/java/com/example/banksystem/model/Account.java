@@ -20,7 +20,6 @@ import java.util.Set;
 @Entity
 @Table(name = "accounts")
 public class Account extends BaseEntity{
-
     @Column(name = "balance")
     private BigDecimal balance;
     @Column(name = "account_number")

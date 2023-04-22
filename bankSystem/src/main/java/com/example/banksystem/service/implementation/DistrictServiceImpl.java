@@ -3,9 +3,8 @@ package com.example.banksystem.service.implementation;
 
 import com.example.banksystem.converter.CityConverter;
 import com.example.banksystem.converter.DistrictConverter;
-import com.example.banksystem.dto.request.CreateDistrictRequest;
-import com.example.banksystem.dto.response.DistrictDto;
-import com.example.banksystem.model.City;
+import com.example.banksystem.dto.request.create.CreateDistrictRequest;
+import com.example.banksystem.dto.response.DistrictResponse;
 import com.example.banksystem.model.District;
 import com.example.banksystem.repository.DistrictRepository;
 import com.example.banksystem.service.CityService;
@@ -40,12 +39,11 @@ public class DistrictServiceImpl implements DistrictService {
         districtRepository.save(district);
     }
     @Override
-    public DistrictDto getCityById(Long id) {
+    public DistrictResponse getCityById(Long id) {
         District district = districtRepository.findById(id).orElseThrow();
         if (district.isDeleted()){
             return null;
         }
         return districtConverter.convertToDto(district);
     }
-
 }

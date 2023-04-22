@@ -3,10 +3,9 @@ package com.example.banksystem.service.implementation;
 import com.example.banksystem.converter.AddressConverter;
 import com.example.banksystem.converter.CityConverter;
 import com.example.banksystem.converter.CustomerConverter;
-import com.example.banksystem.dto.request.CreateAddressRequest;
-import com.example.banksystem.dto.response.AddressDto;
+import com.example.banksystem.dto.request.create.CreateAddressRequest;
+import com.example.banksystem.dto.response.AddressResponse;
 import com.example.banksystem.model.Address;
-import com.example.banksystem.model.City;
 import com.example.banksystem.repository.AddressRepository;
 import com.example.banksystem.service.AddressService;
 import com.example.banksystem.service.CityService;
@@ -47,12 +46,11 @@ public class AddressServiceImpl implements AddressService {
         addressRepository.save(address);
     }
     @Override
-    public AddressDto getAddressById(Long id) {
+    public AddressResponse getAddressById(Long id) {
         Address address = addressRepository.findById(id).orElseThrow();
         if (address.isDeleted()){
             return null;
         }
         return addressConverter.convertToDto(address);
     }
-
 }

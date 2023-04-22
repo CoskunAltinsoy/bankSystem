@@ -24,5 +24,4 @@ public class User extends BaseEntity  {
     private String phoneNumber;
     @Column(name = "is_number")
     private boolean isBlocked;
-
 }

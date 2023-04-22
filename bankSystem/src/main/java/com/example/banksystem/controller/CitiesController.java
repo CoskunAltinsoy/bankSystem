@@ -1,11 +1,9 @@
 package com.example.banksystem.controller;
 
-import com.example.banksystem.dto.request.CreateCityRequest;
-import com.example.banksystem.dto.response.CityDto;
+import com.example.banksystem.dto.request.create.CreateCityRequest;
+import com.example.banksystem.dto.response.CityResponse;
 import com.example.banksystem.service.CityService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,7 +20,7 @@ public class CitiesController {
     }
     @GetMapping({"/{id}"})
 
-    public ResponseEntity<CityDto> getByCityId(@PathVariable("id") Long id){
+    public ResponseEntity<CityResponse> getByCityId(@PathVariable("id") Long id){
         return ResponseEntity.ok(cityService.getCityById(id));
     }
 }

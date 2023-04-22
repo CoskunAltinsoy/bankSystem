@@ -1,10 +1,11 @@
 package com.example.banksystem.service.implementation;
 
 import com.example.banksystem.converter.CustomerConverter;
-import com.example.banksystem.dto.request.AuthRequest;
-import com.example.banksystem.dto.request.CreateCustomerRequest;
+import com.example.banksystem.dto.request.create.AuthRequest;
+import com.example.banksystem.dto.request.create.CreateCustomerRequest;
 import com.example.banksystem.dto.response.AuthResponse;
-import com.example.banksystem.dto.response.CustomerDto;
+import com.example.banksystem.dto.response.CustomerResponse;
+import com.example.banksystem.exception.NotFoundException;
 import com.example.banksystem.model.Customer;
 import com.example.banksystem.repository.CustomerRepository;
 import com.example.banksystem.security.CustomUserDetail;
@@ -23,7 +24,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-
     private final CustomerRepository customerRepository;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
@@ -65,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto register(CreateCustomerRequest createCustomerRequest) {
+    public CustomerResponse register(CreateCustomerRequest createCustomerRequest) {
 
         Customer customer =
                 customerConverter.convertToEntity(createCustomerRequest);
@@ -78,11 +78,36 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto getCustomerById(Long id) {
+    public CustomerResponse getById(Long id) {
+        checkIfCustomerExists(id);
+
         Customer customer = customerRepository.findById(id).orElseThrow();
-        if (customer.isDeleted()){
-            return null;
-        }
+
         return customerConverter.convertToDto(customer);
+    }
+
+    @Override
+    public List<CustomerResponse> getAll() {
+        List<Customer> customers = customerRepository.findAll();
+
+        List<CustomerResponse> customerResponses = customerConverter.convertToListDto(customers);
+
+        return customerResponses;
+    }
+
+    @Override
+    public void delete(Long id) {
+       Customer customer = customerRepository.findById(id).orElseThrow();
+
+       customer.setDeleted(true);
+       customerRepository.save(customer);
+    }
+
+    private void checkIfCustomerExists(Long id){
+        Customer customer = customerRepository.findById(id).orElseThrow();
+
+        if (customer.isDeleted()){
+            throw new NotFoundException("This Customer Not Found");
+        }
     }
 }

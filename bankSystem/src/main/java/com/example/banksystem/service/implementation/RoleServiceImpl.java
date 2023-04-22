@@ -1,8 +1,8 @@
 package com.example.banksystem.service.implementation;
 
 import com.example.banksystem.converter.RoleConverter;
-import com.example.banksystem.dto.request.CreateRoleRequest;
-import com.example.banksystem.dto.response.RoleDto;
+import com.example.banksystem.dto.request.create.CreateRoleRequest;
+import com.example.banksystem.dto.response.RoleResponse;
 import com.example.banksystem.model.Role;
 import com.example.banksystem.repository.RoleRepository;
 import com.example.banksystem.service.RoleService;
@@ -28,13 +28,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleDto getRoleById(Long id) {
+    public RoleResponse getRoleById(Long id) {
         Role role = roleRepository.findById(id).orElseThrow();
         if (role.isDeleted()){
             return null;
         }
         return roleConverter.convertToDto(role);
     }
-
-
 }

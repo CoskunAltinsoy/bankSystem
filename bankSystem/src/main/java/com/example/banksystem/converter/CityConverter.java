@@ -1,8 +1,7 @@
 package com.example.banksystem.converter;
 
-import com.example.banksystem.dto.request.CreateCityRequest;
-import com.example.banksystem.dto.response.CityDto;
-import com.example.banksystem.dto.response.DistrictDto;
+import com.example.banksystem.dto.request.create.CreateCityRequest;
+import com.example.banksystem.dto.response.CityResponse;
 import com.example.banksystem.model.City;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +10,12 @@ import java.util.stream.Collectors;
 
 @Component
 public class CityConverter {
-    public CityDto convertToDto(City city){
-        return new CityDto(
-                city.getCityName()
-        );
+    public CityResponse convertToDto(City city){
+        CityResponse cityResponse = new CityResponse();
+
+        cityResponse.setCityName(city.getCityName());
+
+        return cityResponse;
     }
     public City convertToEntity(CreateCityRequest createCityRequest){
         City city = new City();
@@ -23,9 +24,7 @@ public class CityConverter {
 
         return city;
     }
-    public List<CityDto> convertToDtoList(List<City> cities){
+    public List<CityResponse> convertToDtoList(List<City> cities){
         return cities.stream().map(from -> convertToDto(from)).collect(Collectors.toList());
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.example.banksystem.dto.request;
+package com.example.banksystem.dto.request.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCityRequest {
-    private String cityName;
+public class AuthRequest {
+    private String email;
+    private String password;
 }

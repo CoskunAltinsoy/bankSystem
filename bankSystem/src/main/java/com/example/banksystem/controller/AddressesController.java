@@ -1,10 +1,9 @@
 package com.example.banksystem.controller;
 
-import com.example.banksystem.dto.request.CreateAddressRequest;
-import com.example.banksystem.dto.response.AddressDto;
+import com.example.banksystem.dto.request.create.CreateAddressRequest;
+import com.example.banksystem.dto.response.AddressResponse;
 import com.example.banksystem.service.AddressService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,8 +21,7 @@ public class AddressesController {
 
     @GetMapping("/{id}")
     //@PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<AddressDto> getByAddressId(@PathVariable("id") Long id){
+    public ResponseEntity<AddressResponse> getByAddressId(@PathVariable("id") Long id){
         return ResponseEntity.ok(addressService.getAddressById(id));
     }
-
 }

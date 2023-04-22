@@ -25,6 +25,4 @@ public class City extends BaseEntity{
     private Set<District> districts;
     @OneToMany(mappedBy = "city")
     private Set<Address> addresses;
-
-
 }

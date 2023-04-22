@@ -1,9 +1,7 @@
 package com.example.banksystem.controller;
 
-import com.example.banksystem.dto.request.AuthRequest;
-import com.example.banksystem.dto.request.CreateDistrictRequest;
-import com.example.banksystem.dto.response.AuthResponse;
-import com.example.banksystem.dto.response.DistrictDto;
+import com.example.banksystem.dto.request.create.CreateDistrictRequest;
+import com.example.banksystem.dto.response.DistrictResponse;
 import com.example.banksystem.service.DistrictService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +22,7 @@ public class DistrictsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DistrictDto> getByDistrictId(@PathVariable("id") Long id){
+    public ResponseEntity<DistrictResponse> getByDistrictId(@PathVariable("id") Long id){
         return ResponseEntity.ok(districtService.getCityById(id));
     }
 }
