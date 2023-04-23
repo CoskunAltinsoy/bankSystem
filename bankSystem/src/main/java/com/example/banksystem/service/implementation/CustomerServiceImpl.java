@@ -1,10 +1,13 @@
 package com.example.banksystem.service.implementation;
 
 import com.example.banksystem.converter.CustomerConverter;
+import com.example.banksystem.converter.PasswordConverter;
 import com.example.banksystem.dto.request.create.AuthRequest;
 import com.example.banksystem.dto.request.create.CreateCustomerRequest;
+import com.example.banksystem.dto.request.create.CreatePasswordRequest;
 import com.example.banksystem.dto.response.AuthResponse;
 import com.example.banksystem.dto.response.CustomerResponse;
+import com.example.banksystem.dto.response.PasswordResponse;
 import com.example.banksystem.exception.NotFoundException;
 import com.example.banksystem.model.Customer;
 import com.example.banksystem.repository.CustomerRepository;
@@ -16,6 +19,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
     private final CustomerConverter customerConverter;
+    private final PasswordConverter passwordConverter;
 
     @Autowired
     public CustomerServiceImpl(
@@ -36,13 +41,14 @@ public class CustomerServiceImpl implements CustomerService {
             AuthenticationManager authenticationManager,
             PasswordEncoder passwordEncoder,
             JwtUtils jwtUtils,
-            CustomerConverter customerConverter
-    ) {
+            CustomerConverter customerConverter,
+            PasswordConverter passwordConverter) {
         this.customerRepository = customerRepository;
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtils = jwtUtils;
         this.customerConverter = customerConverter;
+        this.passwordConverter = passwordConverter;
     }
 
 
@@ -103,11 +109,57 @@ public class CustomerServiceImpl implements CustomerService {
        customerRepository.save(customer);
     }
 
+    @Override
+    public boolean checkToken() {
+        return true;
+    }
+
+    @Override
+    public PasswordResponse changePassword(CreatePasswordRequest createPasswordRequest) {
+        checkIfCustomerExistsByEmail(createPasswordRequest.getEmail());
+        checkPasswords(createPasswordRequest.getEmail(),
+                createPasswordRequest.getOldPassword(),
+                createPasswordRequest.getNewPassword());
+
+        Customer customer = customerRepository.
+                findCustomerByEmail(createPasswordRequest.getEmail()).orElseThrow();
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        String encodedNewPassword = bCryptPasswordEncoder.encode(createPasswordRequest.getNewPassword());
+        customer.setPassword(encodedNewPassword);
+
+        customerRepository.save(customer);
+
+        PasswordResponse passwordResponse =
+                passwordConverter.convertToResponse(createPasswordRequest);
+
+        return passwordResponse;
+    }
+
     private void checkIfCustomerExists(Long id){
         Customer customer = customerRepository.findById(id).orElseThrow();
 
         if (customer.isDeleted()){
             throw new NotFoundException("This Customer Not Found");
+        }
+    }
+    private void checkIfCustomerExistsByEmail(String email){
+        Customer customer = customerRepository.findCustomerByEmail(email).orElseThrow();
+
+        if (customer.isDeleted()){
+            throw new NotFoundException("This Customer Not Found By This Email");
+        }
+    }
+    private void checkPasswords(String email, String oldPassword, String newPassword){
+        Customer customer = customerRepository.findCustomerByEmail(email).orElseThrow();
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        //String encodedOldPassword =  bCryptPasswordEncoder.encode(oldPassword);
+
+        if (!bCryptPasswordEncoder.matches(oldPassword, customer.getPassword()) /*!customer.getPassword().equals(encodedOldPassword)*/){
+            throw new NotFoundException("Incorrect Password");
         }
     }
 }
