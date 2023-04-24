@@ -1,11 +1,7 @@
 package com.example.banksystem.controller;
 
-import com.example.banksystem.dto.request.create.AuthRequest;
-import com.example.banksystem.dto.request.create.CreateCustomerRequest;
-import com.example.banksystem.dto.request.create.CreatePasswordRequest;
-import com.example.banksystem.dto.response.AuthResponse;
-import com.example.banksystem.dto.response.CustomerResponse;
-import com.example.banksystem.dto.response.PasswordResponse;
+import com.example.banksystem.dto.request.create.*;
+import com.example.banksystem.dto.response.*;
 import com.example.banksystem.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,13 +38,19 @@ public class CustomersController {
         customerService.delete(id);
         return ResponseEntity.ok().build();
     }
-    @GetMapping("checkToken")
-    public ResponseEntity<Boolean> checkToken(){
-        return ResponseEntity.ok(customerService.checkToken());
-    }
     @PostMapping("/changePassword")
     public ResponseEntity<PasswordResponse> changePassword(
             @RequestBody CreatePasswordRequest createPasswordRequest){
         return ResponseEntity.ok(customerService.changePassword(createPasswordRequest));
     }
+    @PostMapping("/forgotPassword")
+    public ResponseEntity<TokenResetResponse> forgotPassword(
+            @RequestBody CreateResetPasswordRequest createResetPasswordRequest){
+        return ResponseEntity.ok(customerService.forgotPassword(createResetPasswordRequest));
+    } @PutMapping("/resetPassword")
+    public ResponseEntity<ResetPasswordResponse> resetPassword(@RequestParam String token,
+            @RequestBody CreateTokenPasswordRequest createTokenPasswordRequest){
+        return ResponseEntity.ok(customerService.resetPassword(token, createTokenPasswordRequest));
+    }
+
 }

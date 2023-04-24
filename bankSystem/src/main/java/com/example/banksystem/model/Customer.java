@@ -22,6 +22,9 @@ public class Customer extends User {
     private String nationalIdentity;
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
+    @Column(name = "reset_token")
+    private String resetToken;
+
 
     @ManyToOne()
     @JoinColumn(name = "role_id")
