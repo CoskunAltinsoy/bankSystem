@@ -11,9 +11,8 @@ import com.example.banksystem.repository.CustomerRepository;
 import com.example.banksystem.security.CustomUserDetail;
 import com.example.banksystem.security.JwtUtils;
 import com.example.banksystem.service.CustomerService;
+import com.example.banksystem.util.email.EmailService;
 import com.example.banksystem.util.passwordToken.TokenGenerator;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,6 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final PasswordConverter passwordConverter;
     private final ResetTokenConverter resetTokenConverter;
     private final TokenGenerator tokenGenerator;
+    private final EmailService emailService;
 
 
     @Autowired
@@ -47,7 +47,8 @@ public class CustomerServiceImpl implements CustomerService {
             CustomerConverter customerConverter,
             PasswordConverter passwordConverter,
             ResetTokenConverter resetTokenConverter,
-            TokenGenerator tokenGenerator) {
+            TokenGenerator tokenGenerator,
+            EmailService emailService) {
         this.customerRepository = customerRepository;
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
@@ -56,6 +57,7 @@ public class CustomerServiceImpl implements CustomerService {
         this.passwordConverter = passwordConverter;
         this.resetTokenConverter = resetTokenConverter;
         this.tokenGenerator = tokenGenerator;
+        this.emailService = emailService;
     }
 
 
@@ -173,6 +175,8 @@ public class CustomerServiceImpl implements CustomerService {
         TokenResetResponse tokenResetResponse = new TokenResetResponse();
         tokenResetResponse.setUrlWithToken("http://localhost:8080/api/customers/resetPassword?token=" +
                 customer.getResetToken());
+
+        emailService.sendEmail(customer.getEmail(), tokenResetResponse.getUrlWithToken());
 
         return tokenResetResponse;
     }
