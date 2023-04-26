@@ -17,6 +17,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "cards")
 public class Card extends BaseEntity{
+    @Column(name = "balance")
+    private BigDecimal balance;
     @Column(name = "card_number")
     private String cardNumber;
     @Column(name = "boundary")
